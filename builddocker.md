@@ -18,31 +18,31 @@ https://hostpresto.com/community/tutorials/how-to-create-a-docker-container-usin
 
 ## update and install
 
-apt update
-apt upgrade
-apt install git
+	apt update
+	apt upgrade
+	apt install git
 
-1137 committed
+# 1137 committed
 
-mkdir /home/ubuntu; cd /home/ubuntu
+	mkdir /home/ubuntu; cd /home/ubuntu
 
-git clone https://github.com/andrewcgaitskell/voila.git
+	git clone https://github.com/andrewcgaitskell/celldb.git
 
-cd /home/ubuntu/voila/scripts
+cd /home/ubuntu/celldb/scripts
 
-update and install required software
+## update and install required software
 
-bash d1_docker_postgresql.sh
+	bash 1a_docker_postgresql.sh
 
- pg_ctlcluster 12 main start
+ 	pg_ctlcluster 12 main start
 
- bash d2_create_postgrs_users.sh 
+ 	bash 1b_create_postgrs_users.sh 
 
 ## exit from postgrs user
 
 	exit
 
-## exit from iamge
+## exit from image
 
 	exit
 
@@ -56,29 +56,29 @@ use following with container_id found in the aboe
 
 	docker commit container_id your_container_name
 
-created 1148
+# created 1148 now connect
 
-run -i -t ubuntu_1148 bash
+	run -i -t ubuntu_1148 bash
 
 ## open firewalls
 
-bash d3_open_firewalls.sh
+	bash 1c_open_firewalls.sh
 
 ## install python
 
-bash 2_install-python3.sh
+	bash 2_install-python3.sh
 
 ## install python libraries
 
-bash 3_environment.sh
+	bash 3_environment.sh
 
-exit
+	exit
 
-docker ps -a
+	docker ps -a
 
-docker commit container_id your_container_name
+	docker commit container_id your_container_name
 
-1156 created
+# 1156 created
 
 ## config notebook security
 
@@ -86,13 +86,8 @@ apt install nano
 
 jupyter notebook --generate-config
 
+cd /home/ubuntu/celldb/scripts
 
-
-cd /home/ubuntu/voila/scripts
-
-## list available images
-
-	docker images
 
 nano /root/.jupyter/jupyter_notebook_config.py
 
@@ -101,13 +96,15 @@ paste
 c.NotebookApp.token = ''
 c.NotebookApp.password = ''
 
+ctrl x - save
+
 test run inside image
 
 run
 
 jupyter notebook --ip=0.0.0.0 --port=8080 --allow-root --no-browser
 
-commited as 1213
+# commited as 1213
 
 ## make a folder to container dockerfile
 
@@ -127,23 +124,9 @@ commited as 1213
 
 	nano Dockerfile
 
-## build container
-
-docker build -t container_name .
-
-## run docker container 
-
-	docker run -d -P folder_name
-
-	docker run -d -P jupyter_basedon1213_1225
-
-## find what port activated
-
-docker ps
-
-visit
-
-  http:://0.0.0.0:12337
+FROM ubuntu_celldb_1011            
+EXPOSE 8080
+CMD ["bash","/home/ubuntu/voila/scripts/oncontaineropen.sh"]
 
 ============================
 
@@ -167,6 +150,10 @@ committed as 1537
 changed script file to executable
 
 committed as 1542
+
+## list available images
+
+	docker images
 
 
 docker remove
@@ -210,4 +197,38 @@ CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8080", "--allow-root"]
 
 jupyter notebook --ip=0.0.0.0 --port=8080 --allow-root
 
+
+==================
+starting at 1542 image
+
+docker run -i -t ubuntu_1542 bash
+
+cd /home/ubuntu
+
+git clone https://github.com/andrewcgaitskell/celldb.git
+
+cd celldb
+
+bash 3_environment.sh
+
+exit
+
+docker ps -a
+
+find container id from above
+
+df51322ebc35
+
+use following with container_id found in the aboe
+
+
+	docker commit container_id your_container_name
+	
+	docker commit df51322ebc35 ubuntu_celldb_1011
+
+Dockerfile
+
+FROM ubuntu_celldb_1011            
+EXPOSE 8080
+CMD ["bash","/home/ubuntu/voila/scripts/oncontaineropen.sh"]
 
