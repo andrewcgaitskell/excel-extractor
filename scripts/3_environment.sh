@@ -10,3 +10,6 @@ pip3 install ipyvolume
 pip3 install ipyleaflet
 pip3 install geopandas
 pip3 install seaborn
+pip3 install xlsxwriter
+pip3 install xlrd
+pip3 install matplotlib
