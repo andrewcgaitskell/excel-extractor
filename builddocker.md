@@ -222,6 +222,7 @@ df51322ebc35
 use following with container_id found in the aboe
 
 
+
 	docker commit container_id your_container_name
 	
 	docker commit df51322ebc35 ubuntu_celldb_1011
@@ -232,3 +233,23 @@ FROM ubuntu_celldb_1011
 EXPOSE 8080
 CMD ["bash","/home/ubuntu/voila/scripts/oncontaineropen.sh"]
 
+## build container
+
+docker build -t container_name .
+
+docker build -t celldb_basedon1011_1021 .
+
+
+## run docker container 
+
+	docker run -d -P folder_name
+
+	docker run -d -P celldb_basedon1011_1021
+
+## find what port activated
+
+docker ps
+
+visit
+
+  http:://0.0.0.0:12337
